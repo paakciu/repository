@@ -11,9 +11,27 @@ import java.util.*;
  * @date: 2022/4/25 23:10
  */
 public class EntityDiffUtil {
-
+    //默认比较器，source跟target比较如果id一致都认为存在修改。
     public static final DiffEquals DEFAULT_EQUALS=(s,t)->Boolean.FALSE;
 
+    public static <T extends Entity<ID> , ID extends Identifier> List<AbstractDiff<T>> diff(List<T> source,List<T> target){
+        return diff(source, target, DEFAULT_EQUALS,Boolean.TRUE);
+    }
+
+    public static <T extends Entity<ID> , ID extends Identifier> List<AbstractDiff<T>> diff(List<T> source,List<T> target,DiffEquals<T> diffEquals){
+        return diff(source, target, diffEquals,Boolean.TRUE);
+    }
+
+    /**
+     * @author paakciu
+     * @param source 源
+     * @param target 目标
+     * @param diffEquals 比较器 id相等后，判断对象是否有改变
+     * @param ignoreEquals 是否忽略返回EqualsDiff
+     * @param <T>
+     * @param <ID>
+     * @return
+     */
     public static <T extends Entity<ID> , ID extends Identifier>
             List<AbstractDiff<T>> diff(List<T> source,List<T> target,DiffEquals<T> diffEquals,Boolean ignoreEquals){
         Objects.requireNonNull(source,"source mast not be null!");
