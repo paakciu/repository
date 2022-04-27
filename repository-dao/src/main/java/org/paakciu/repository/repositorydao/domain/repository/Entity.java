@@ -5,5 +5,6 @@ package org.paakciu.repository.repositorydao.domain.repository;
  * @InterfaceName: Entity
  * @date: 2022/4/25 23:05
  */
-public interface Entity<ID extends Identifier> extends Identifiable{
+public interface Entity<ID extends Identifier> extends Identifiable<ID>{
+
 }
